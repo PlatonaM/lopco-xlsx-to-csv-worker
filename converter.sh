@@ -17,7 +17,7 @@
 
 # Environment variables:
 #
-# $WORKER_INSTANCE
+# $DEP_INSTANCE
 # $JOB_CALLBACK_URL
 # $xlsx_file
 # $delimiter
@@ -30,5 +30,5 @@ cd /data_cache
 ssconvert --import-type="Gnumeric_Excel:xlsx" --export-type="Gnumeric_stf:stf_assistant" -O "separator=$delimiter quoting-on-whitespace=FALSE quoting-mode=never eol=unix format=raw charset=UTF-8" "$xlsx_file" "$out_file_name"
 
 if [ $? -eq 0 ]; then
-    curl --header 'Content-Type: application/json' --data "{\""$WORKER_INSTANCE"\": [{\"csv_file\": \""$out_file_name"\"}]}" -X POST "$JOB_CALLBACK_URL"
+    curl --header 'Content-Type: application/json' --data "{\""$DEP_INSTANCE"\": [{\"csv_file\": \""$out_file_name"\"}]}" -X POST "$JOB_CALLBACK_URL"
 fi
