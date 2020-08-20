@@ -25,6 +25,7 @@
                 }
             ]
         },
-        "configs": null,
-        "delimiter": null
+        "configs": {
+            "delimiter": null
+        }
     }
