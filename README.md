@@ -1,10 +1,13 @@
 #### Description
 
     {
-        "name": "Convert xlsx to csv",
-        "description": null,
-        "image": "xlsx-to-csv-worker",
+        "name": "XLSX to CSV",
+        "image": "platonam/lopco-xlsx-to-csv-worker:dev",
         "data_cache_path": "/data_cache",
+        "description": "Convert a Microsoft Excel Open XML Spreadsheet file to Comma-Separated Values.",
+        "configs": {
+            "delimiter": null
+        },
         "input": {
             "type": "single",
             "fields": [
@@ -22,10 +25,12 @@
                     "name": "csv_file",
                     "media_type": "text/csv",
                     "is_file": true
+                },
+                {
+                    "name": "line_count",
+                    "media_type": "text/plain",
+                    "is_file": false
                 }
             ]
-        },
-        "configs": {
-            "delimiter": null
         }
     }
