@@ -23,14 +23,18 @@
 # $delimiter
 
 
-out_file_name=$(cat /proc/sys/kernel/random/uuid | echo $(read s; echo ${s//-}))
+out_file_name="$(cat /proc/sys/kernel/random/uuid | echo $(read s; echo ${s//-}))"
 
 cd /data_cache
 
-ssconvert --import-type="Gnumeric_Excel:xlsx" --export-type="Gnumeric_stf:stf_assistant" -O "separator=$delimiter quoting-on-whitespace=FALSE quoting-mode=never eol=unix format=raw charset=UTF-8" "$xlsx_file" "$out_file_name"
-
-line_count=$(( $(wc -l < $out_file_name) - 1 ))
-
-if [ $? -eq 0 ]; then
-    curl --header 'Content-Type: application/json' --data "{\""$DEP_INSTANCE"\": [{\"csv_file\": \""$out_file_name"\", \"line_count\": "$line_count"}]}" -X POST "$JOB_CALLBACK_URL"
+echo "converting ..."
+if ssconvert --import-type="Gnumeric_Excel:xlsx" --export-type="Gnumeric_stf:stf_assistant" -O "separator=$delimiter quoting-on-whitespace=FALSE quoting-mode=never eol=unix format=raw charset=UTF-8" "$xlsx_file" "$out_file_name"; then
+    head -5 "$out_file_name"
+    line_count=$(( $(wc -l < "$out_file_name") - 1 ))
+    if ! curl --header 'Content-Type: application/json' --data "{\""$DEP_INSTANCE"\": [{\"csv_file\": \""$out_file_name"\", \"line_count\": "$line_count"}]}" -X POST "$JOB_CALLBACK_URL"; then
+        echo "callback failed"
+        rm "$out_file_name"
+    fi
+else
+    echo "converting failed"
 fi
