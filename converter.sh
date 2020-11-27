@@ -31,7 +31,7 @@ echo "converting ..."
 if ssconvert --import-type="Gnumeric_Excel:xlsx" --export-type="Gnumeric_stf:stf_assistant" -O "separator=$delimiter quoting-on-whitespace=FALSE quoting-mode=never eol=unix format=raw charset=UTF-8" "$xlsx_file" "$out_file_name"; then
     head -5 "$out_file_name"
     echo "total number of lines written:" $(( $(wc -l < "$out_file_name") - 1 ))
-    if ! curl --header 'Content-Type: application/json' --data "{\""$DEP_INSTANCE"\": {\"csv_file\": \""$out_file_name"\"}}" -X POST "$JOB_CALLBACK_URL"; then
+    if ! curl -s -S --header 'Content-Type: application/json' --data "{\""$DEP_INSTANCE"\": {\"csv_file\": \""$out_file_name"\"}}" -X POST "$JOB_CALLBACK_URL"; then
         echo "callback failed"
         rm "$out_file_name"
     fi
