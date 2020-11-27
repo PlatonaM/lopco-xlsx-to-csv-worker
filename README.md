@@ -25,11 +25,6 @@
                     "name": "csv_file",
                     "media_type": "text/csv",
                     "is_file": true
-                },
-                {
-                    "name": "line_count",
-                    "media_type": "text/plain",
-                    "is_file": false
                 }
             ]
         }
