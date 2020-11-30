@@ -2,7 +2,7 @@
 
     {
         "name": "XLSX to CSV",
-        "image": "platonam/lopco-xlsx-to-csv-worker:dev",
+        "image": "platonam/lopco-xlsx-to-csv-worker:latest",
         "data_cache_path": "/data_cache",
         "description": "Convert a Microsoft Excel Open XML Spreadsheet file to Comma-Separated Values.",
         "configs": {
