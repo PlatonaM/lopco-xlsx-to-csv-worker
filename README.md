@@ -1,4 +1,24 @@
-#### Description
+## lopco-xlsx-to-csv-worker
+
+Convert Excel xlsx files to CSV files.
+
+### Configuration
+
+`delimiter`: Delimiter to be used in the CSV file.
+
+### Inputs
+
+Type: single
+
+`xlsx_file`: Excel file.
+
+### Outputs
+
+Type: single
+
+`csv_file`: CSV file.
+
+### Description
 
     {
         "name": "XLSX to CSV",
